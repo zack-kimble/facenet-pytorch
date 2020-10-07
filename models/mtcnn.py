@@ -386,9 +386,12 @@ class MTCNN(nn.Module):
         selected_boxes, selected_probs, selected_points = [], [], []
         for boxes, points, probs, img in zip(all_boxes, all_points, all_probs, imgs):
 
-            boxes = np.array(boxes)
-            probs = np.array(probs)
-            points = np.array(points)
+            if boxes is None:
+                boxes = np.empty(0)
+            else:
+                boxes = np.array(boxes)
+                probs = np.array(probs)
+                points = np.array(points)
 
             if len(boxes) == 0:
                 selected_boxes.append(None)
